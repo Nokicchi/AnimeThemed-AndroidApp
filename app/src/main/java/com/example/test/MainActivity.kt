@@ -59,6 +59,9 @@ class MainActivity : ComponentActivity() {
                 var fullName by remember {
                     mutableStateOf("")
                 }
+                var occupation by remember {
+                    mutableStateOf("")
+                }
                 var names by remember {
                     mutableStateOf(listOf<String>("Sato", "Misaki", "Ilham"))
                 }
@@ -87,9 +90,10 @@ class MainActivity : ComponentActivity() {
                                 )
                                 Spacer(modifier = Modifier.width(16.dp))
                                 Button(onClick = {
-                                    if (fullName.isNotBlank()) {
+                                    if (fullName.isNotBlank() && occupation.isNotBlank()) {
                                         names = names + fullName
                                         fullName = ""
+                                        occupation = ""
                                     }},
                                     colors = ButtonDefaults.buttonColors(
                                         containerColor = Color(0xFFFFAA36)
@@ -97,6 +101,15 @@ class MainActivity : ComponentActivity() {
                                 ) {
                                     Text(text = "Join")
                                 }
+                            }
+                            Row(modifier = Modifier.fillMaxWidth()) {
+                                OutlinedTextField(
+                                    value = occupation,
+                                    onValueChange = { text ->
+                                        occupation = text
+                                    },
+                                    label = {Text(text = "Occupation")},
+                                )
                             }
                             currentMember()
                             LazyColumn{
